@@ -1,0 +1,16 @@
+#partition all arrays completely: 64 elements as registers, unlimited port access
+set_directive_array_partition -type complete -dim 1 mul a
+set_directive_array_partition -type complete -dim 1 mul b
+set_directive_array_partition -type complete -dim 1 mul prod
+
+#unroll loop fully: 64 multiplications in parallel
+set_directive_unroll mul/mul_loop
+
+#pipeline function for II=1
+set_directive_pipeline mul
+
+#force multiplier to DSP48 with internal pipeline registers, breaks combinational cascade
+set_directive_resource -core DSP48 mul mult
+
+#push HLS to register DSP cascade intermediates (needed for 64x64 mul_tiling)
+config_schedule -effort high
