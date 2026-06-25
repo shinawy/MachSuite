@@ -3,7 +3,7 @@
 // ap_int port of the MachSuite stencil2d kernel, sized 4x4 with a 3x3 filter.
 // Loop structure preserved so the C->ArithV source-loop path models orig/filter
 // /sol as arrays with indexed access (the 9 DSP multiplies stay in-graph).
-void stencil (TYPE orig[row_size * col_size], OUT_TYPE sol[row_size * col_size], TYPE filter[f_size]){
+void stencil (TYPE orig[row_size * col_size], OUT_TYPE sol[out_rows * out_cols], TYPE filter[f_size]){
     int r, c, k1, k2;
     OUT_TYPE mul;
 
@@ -20,7 +20,7 @@ void stencil (TYPE orig[row_size * col_size], OUT_TYPE sol[row_size * col_size],
                     temp += mul;
                 }
             }
-            sol[(r*col_size) + c] = temp;
+            sol[(r*out_cols) + c] = temp;
         }
     }
 }

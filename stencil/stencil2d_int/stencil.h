@@ -19,8 +19,14 @@
 
 #define MAX_ITERATION 1
 
+// Output holds ONLY the valid (row-2)x(col-2) convolution region, compactly
+// indexed, so EVERY sol element is written. (A full row_size*col_size sol left
+// the border elements undriven -> X in sim vs the golden's 0.)
+#define out_rows (row_size - 2)
+#define out_cols (col_size - 2)
+
 void stencil( TYPE orig[row_size * col_size],
-        OUT_TYPE sol[row_size * col_size],
+        OUT_TYPE sol[out_rows * out_cols],
         TYPE filter[f_size] );
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +34,6 @@ void stencil( TYPE orig[row_size * col_size],
 
 struct bench_args_t {
     TYPE orig[row_size*col_size];
-    OUT_TYPE sol[row_size*col_size];
+    OUT_TYPE sol[out_rows*out_cols];
     TYPE filter[f_size];
 };
