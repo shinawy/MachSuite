@@ -19,3 +19,4 @@ spmv/ellpack/spmv
 stencil/stencil2d/stencil
 stencil/stencil3d/stencil
 viterbi/viterbi/viterbi
+.DS_Store
